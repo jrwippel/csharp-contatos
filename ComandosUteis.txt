@@ -1,0 +1,5 @@
+Acessar ferramentas/Gerenciador de pacote NUGET/Console de gerenciador de pacotes
+1-Criar a Migration
+Add-Migration CriandoTabelaContatos -Context BancoContext
+2-Executar a migration criada
+Update-Database -Context BancoContext

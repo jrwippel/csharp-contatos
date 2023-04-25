@@ -1,4 +1,5 @@
 using ControleDeContatos.Data;
+using ControleDeContatos.Repositorio;
 using Microsoft.EntityFrameworkCore;
 
 namespace ControleDeContatos
@@ -14,6 +15,7 @@ namespace ControleDeContatos
             {
                 builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
                 connection = builder.Configuration.GetConnectionString("Database");
+                builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
             }
             else
             {
