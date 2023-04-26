@@ -44,5 +44,19 @@ namespace ControleDeContatos.Repositorio
                 return contatoDB;
 
         }
+        public bool Apagar(int id)
+        {
+            ContatoModel contatoDB = ListarPorId(id);
+
+            if (contatoDB == null) throw new Exception("Registro não existe para ser excluído");
+
+            _bancoContext.Remove(contatoDB);
+            _bancoContext.SaveChanges();
+
+            return true;
+
+
+        }
+
     }
 }
