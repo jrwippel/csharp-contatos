@@ -6,3 +6,8 @@ Acessar ferramentas/Gerenciador de pacote NUGET/Console de gerenciador de pacote
 Add-Migration CriandoTabelaContatos -Context BancoContext
 2-Executar a migration criada
 Update-Database -Context BancoContext
+3 - Criar Controller
+4 -Criar a index
+5 - Criar link na pasta shared  mudar arquivo _laytout.cshtml
+6 - Modificar o layout da tela, mudando o site.js
+7 - Criar a intercafe de repositorio e classe de repositorio
