@@ -16,6 +16,7 @@ namespace ControleDeContatos
                 builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
                 connection = builder.Configuration.GetConnectionString("Database");
                 builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
+                builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             }
             else
             {
