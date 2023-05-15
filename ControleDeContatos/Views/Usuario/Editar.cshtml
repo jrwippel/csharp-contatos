@@ -7,10 +7,11 @@
 
 <div class="text-center">
     <br />
-    <h1 class="display-4">Cadastrar Usuarios</h1>
+    <h1 class="display-4">Editar Usuarios</h1>
 </div>
 
-<form asp-controller="Usuario" asp-action="Criar" method="post">
+<form asp-controller="Usuario" asp-action="Editar" method="post">
+    <input type="hidden" asp-for="Id" />
     <div class="mb-3">
         <label for="nome" >Nome</label>
         <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome do usuário" >        
@@ -31,18 +32,13 @@
     <div class="mb-3">
         <label for="fone">Perfil</label>
         <select asp-for="Perfil" class="form-control">
-            <option value="0">Selecione</option>
+            <option value="">Selecione</option>
             <option value="@PerfilEnum.Admin">Administrador</option>
             <option value="@PerfilEnum.Padrao">Padrão</option>
         </select>
+        @Html.ValidationMessageFor(x => x.Perfil)
     </div>
 
-    <div class="mb-3">
-        <label for="fone">Senha</label>
-        <input type="password" asp-for="Senha" class="form-control" placeholder="Digite a senha do usuário">
-        @Html.ValidationMessageFor(x => x.Senha)
-    </div>
-
-    <button type="submit" class="btn btn-primary w-100">Adicionar</button>
+    <button type="submit" class="btn btn-primary w-100">Editar</button>
     <a class="btn btn-secondary w-100" asp-controller="Usuario" asp-action="Index" role="button">Voltar</a>
 </form>

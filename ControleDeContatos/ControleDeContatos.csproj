@@ -23,6 +23,8 @@
 
   <ItemGroup>
     <Compile Remove="Models\Class.cs" />
+    <Compile Remove="Models\UsuarioModel - Cópia %282%29.cs" />
+    <Compile Remove="Models\UsuarioModel - Cópia.cs" />
     <Compile Remove="Repositorio\ContatoRepositorio - Cópia.cs" />
     <Compile Remove="Repositorio\IContatoRepositorio - Cópia.cs" />
   </ItemGroup>

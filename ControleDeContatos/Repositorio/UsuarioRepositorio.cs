@@ -42,7 +42,7 @@ namespace ControleDeContatos.Repositorio
             usuarioDB.Login = usuario.Login;
             usuarioDB.DataAtualizacao = DateTime.Now;
             usuarioDB.Perfil = usuario.Perfil;
-            usuarioDB.Senha = usuario.Senha;
+            
             _bancoContext.Usuarios.Update(usuarioDB);
             _bancoContext.SaveChanges();
             return usuarioDB;
