@@ -27,6 +27,10 @@ namespace ControleDeContatos.Controllers
             if (_sessao.BuscarSessaoDoUsuario() != null) return RedirectToAction("Index", "Home");
             return View();
         }
+        public IActionResult RedefinirSenha()
+        {
+            return View();
+        }
 
         public IActionResult Sair()         
         { 
@@ -63,6 +67,34 @@ namespace ControleDeContatos.Controllers
                 TempData["MensagemErro"] = $"Ops, não conseguimos apagar seu Usuário apagado, mais detalhes no erro: {erro.Message}";
                 return RedirectToAction("Index");
             }            
+        }
+
+        [HttpPost]
+        public IActionResult EnviarLinkParaRedefinirSenha(RedefinirSenhaModel redefinirSenhaModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    UsuarioModel usuarioModel = _usuarioRepositorio.BuscarPorEmailLogin(redefinirSenhaModel.Email, redefinirSenhaModel.Login);
+
+                    if (usuarioModel != null)
+                    {
+                        TempData["MensagemSucesso"] = $"Enviamos para o seu email cadastrado uma nova senha.";
+                        return RedirectToAction("Index", "Login");
+
+                    }
+                    TempData["MensagemErro"] = $"Não conseguimos redefinir sua senha. Dados informados inválidos";
+
+                }
+
+                return View("Index");
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Ops, não conseguimos redefinir sua senha, tente novamente, detalhe do erro: {erro.Message}";
+                return RedirectToAction("Index");
+            }
         }
     }
 }
