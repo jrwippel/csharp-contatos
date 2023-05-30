@@ -1,4 +1,5 @@
-﻿using ControleDeContatos.Models;
+﻿using ControleDeContatos.Helper;
+using ControleDeContatos.Models;
 using ControleDeContatos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,18 +9,29 @@ namespace ControleDeContatos.Controllers
     {
 
         private readonly IUsuarioRepositorio _usuarioRepositorio;
+        private readonly ISessao _sessao;
 
-        public LoginController(IUsuarioRepositorio usuarioRepositorio)
+        public LoginController(IUsuarioRepositorio usuarioRepositorio, 
+                               ISessao sessao)
         {
 
             _usuarioRepositorio = usuarioRepositorio;
+            _sessao = sessao;
 
         }
 
         
         public IActionResult Index()
         {
+            //Se o usuario estiver logado, direcionar para a Home
+            if (_sessao.BuscarSessaoDoUsuario() != null) return RedirectToAction("Index", "Home");
             return View();
+        }
+
+        public IActionResult Sair()         
+        { 
+            _sessao.RemoverSessaoDoUsuario();
+            return RedirectToAction("Index", "Login"); 
         }
 
         [HttpPost]
@@ -35,6 +47,7 @@ namespace ControleDeContatos.Controllers
                     {
                         if (usuarioModel.ValidaSenha(loginModel.Senha))
                         {
+                            _sessao.CriarSessaoDoUsuario(usuarioModel);
                             return RedirectToAction("Index", "Home");
                         }
                         TempData["MensagemErro"] = $"Senha do Usuário é Inválida";

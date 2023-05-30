@@ -1,4 +1,5 @@
 using ControleDeContatos.Data;
+using ControleDeContatos.Helper;
 using ControleDeContatos.Repositorio;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,8 +16,17 @@ namespace ControleDeContatos
             {
                 builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
                 connection = builder.Configuration.GetConnectionString("Database");
+
+                builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();                
                 builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
                 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+                builder.Services.AddScoped<ISessao, Sessao>();
+
+                builder.Services.AddSession(o =>
+                {
+                    o.Cookie.HttpOnly = true;
+                    o.Cookie.IsEssential = true;
+                });
             }
             else
             {
@@ -40,6 +50,7 @@ namespace ControleDeContatos
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.MapControllerRoute(
                 name: "default",
