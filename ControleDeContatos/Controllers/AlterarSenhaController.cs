@@ -43,7 +43,7 @@ namespace ControleDeContatos.Controllers
             }
             catch (Exception erro)
             {
-                TempData["MensagemErro"] = $"Ops, não conseguimos alterar a senha, detalhe do erro:{erro.Message}";
+                TempData["MensagemErro"] = $"Ops, não conseguimos alterar a sua senha, detalhe do erro: {erro.Message}";
                 return View("Index", alterarSenhaModel);
             }
         }
