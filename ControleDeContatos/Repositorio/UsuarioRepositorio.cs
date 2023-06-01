@@ -58,6 +58,30 @@ namespace ControleDeContatos.Repositorio
             return usuarioDB;
 
         }
+
+        public UsuarioModel AlterarSenha(AlterarSenhaModel alterarSenhaModel)
+        {
+            UsuarioModel usuarioDB = ListarPorId(alterarSenhaModel.Id);
+
+            if (usuarioDB == null)  throw new Exception ("Houve um erro na atualização da senha, usuáro não encontrado");
+
+            if (!usuarioDB.ValidaSenha(alterarSenhaModel.SenhaAtual)) throw new Exception("Senha atual não confere");
+
+            if (usuarioDB.ValidaSenha(alterarSenhaModel.SenhaNova)) throw new Exception("Senha nova deve ser diferente da atual");
+
+            usuarioDB.SetNovaSenha(alterarSenhaModel.SenhaNova);
+
+            usuarioDB.DataAtualizacao = DateTime.Now;
+
+            _bancoContext.Usuarios.Update(usuarioDB);
+
+            _bancoContext.SaveChanges();
+
+            return usuarioDB;
+
+
+
+        }
         public bool Apagar(int id)
         {
             UsuarioModel usuarioDB = ListarPorId(id);
@@ -71,7 +95,6 @@ namespace ControleDeContatos.Repositorio
 
 
         }
-
 
     }
 }
